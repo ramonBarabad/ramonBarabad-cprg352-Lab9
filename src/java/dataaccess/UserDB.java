@@ -24,7 +24,7 @@ public class UserDB {
     }
     
     
-    public User get()throws Exception{
+    public User get(String email)throws Exception{
         User user = null;
         
         //TO DO
