@@ -22,8 +22,8 @@ public class RoleService {
     }
 
     public List<Role> getAll() throws Exception {
-        List<Role> roles = null;
-
+        RoleDB roleDB = new RoleDB();
+        List<Role> roles = roleDB.getAll();
         return roles;
     }
 

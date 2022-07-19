@@ -12,7 +12,7 @@ package models;
 public class User {
     
     private String email;
-    private int active;
+    private boolean active;
     private String firstName;
     private String lastName;
     private String password;
@@ -20,20 +20,20 @@ public class User {
 
     public User(){}
     
-    public User(String email, int active, String firstName, String lastName, String password, int role) {
+    public User(String email,boolean active, String firstName, String lastName, String password, int role) {
         this.email = email;
         this.active = active;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
+        this.role = role;        
     }
    
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
