@@ -40,13 +40,24 @@
                         </td>
                         <td>
                             <c:choose>
-                                <c:when test="${user.active}">
-                                    <c:set var="Yes" value="true" />Active
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="No" value="false" />Inactive  
-                                </c:otherwise>
+                                <c:when test="${user.active==true}">Active</c:when>
+                                <c:otherwise>Inactive</c:otherwise>
                             </c:choose>
+                        </td>
+                        <td>
+                            <!-- EDIT -->
+                            <c:url value="/user" var="args">
+                                <c:param name="action" value="edit" />
+                                <c:param name="email" value="${user.email}" />
+                            </c:url>
+                            <a href=${args}>Edit</a>
+                            &nbsp;
+                            <!-- DELETE -->
+                            <c:url value="/user" var="args">
+                                <c:param name="action" value="delete" />
+                                <c:param name="email" value="${user.email}" />
+                            </c:url>
+                            <a href=${args}>Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
