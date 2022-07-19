@@ -17,22 +17,37 @@
         <h1>User Manager</h1>
         
         <div>
-            <h2>Users</h2>
+            <h2>User</h2>
             <table>
                 <tr>
-                    <th>${samp}</th>
+                    <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Role</th>
-                    <th>Active</th>    
-                <tr/>
-                <c:forEach var="users" items="${userList}">
+                    <th>Status</th>    
+                </tr>
+                <c:forEach var="user" items="${userList}">
                     <tr>
-                        <td>${users.email}</td>
-                        <td>${users.firstName}</td>
-                        <td>${users.lastName}</td>
-                        <td></td>
-                        <td></td>
+                        <td>${user.email}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>
+                            <c:forEach var="role" items="${roleList}">
+                                <c:if test="${user.role == role.id}">
+                                    ${role.name}
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${user.active}">
+                                    <c:set var="Yes" value="true" />Active
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="No" value="false" />Inactive  
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
                 

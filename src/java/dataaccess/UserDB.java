@@ -45,7 +45,10 @@ public class UserDB {
                 users.add(user);
             }
             
-        } finally {
+        } catch(Exception ex){
+            System.out.print("asdfadsf");
+        }        
+        finally {
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             cp.freeConnection(con);

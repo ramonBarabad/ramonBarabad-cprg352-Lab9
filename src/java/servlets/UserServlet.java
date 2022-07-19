@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,17 +38,17 @@ public class UserServlet extends HttpServlet {
             
             userList = userService.getAll();
             roleList = roleService.getAll();
+                 
+            
                       
-            //public User(String email,boolean active, String firstName, String lastName, String password, int role) {
-    
             
             
-            request.setAttribute("samp", "asdfasdfaf");
             
             request.setAttribute("userList", userList);
             request.setAttribute("roleList", roleList);
             
         } catch (Exception ex) {
+            //request.setAttribute("samp", userList.size());
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
