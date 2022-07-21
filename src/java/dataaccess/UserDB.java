@@ -18,7 +18,8 @@ import models.User;
  */
 public class UserDB {
 
-    public List<User> getAll() throws Exception {
+    public List<User> getAll() throws Exception {        
+        
         List<User> users = new ArrayList<>();
 
         ConnectionPool cp = ConnectionPool.getInstance();
