@@ -49,6 +49,8 @@ public class UserServlet extends HttpServlet {
     static final String VIEW_UPDATE_PASSWORD = "update_password";
     static final String VIEW_UPDATE_ROLE = "update_role";
 
+    static final String UPDATE_USER = "updateUser";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,38 +58,44 @@ public class UserServlet extends HttpServlet {
         UserService userService = new UserService();
         RoleService roleService = new RoleService();
 
+        String email = request.getParameter(PAR_EMAIL);
+        String action = request.getParameter(ACTION);
+
         List<User> userList = null;
         List<Role> roleList = null;
 
         try {
 
-            String action = request.getParameter(ACTION);
-
             if (action != null) {
-                if (action.equals(ACT_EDIT)) {
-                    String email = request.getParameter(PAR_EMAIL);
-                    User user = userService.get(email);
-                    request.setAttribute(VIEW_UPDATE_EMAIL, user.getEmail());
-                    request.setAttribute(VIEW_UPDATE_ACTIVE, user.getActive());
-                    request.setAttribute(VIEW_UPDATE_FIRSTNAME, user.getFirstName());
-                    request.setAttribute(VIEW_UPDATE_LASTNAME, user.getLastName());
-                    request.setAttribute(VIEW_UPDATE_PASSWORD, user.getPassword());
-                    request.setAttribute(VIEW_UPDATE_ROLE, user.getRole());
-                } else if (action.equals(ACT_DELETE)) {
-                    String email = request.getParameter(PAR_EMAIL);
-                    userService.delete(email);                    
+                switch (action) {
+                    case ACT_EDIT:
+                        User user = userService.get(email);
+                        request.setAttribute(UPDATE_USER, user);
+                        break;
+                    case ACT_DELETE:
+                        userService.delete(email);
+                        break;
+                    default:
+                        break;
                 }
             }
 
-            userList = userService.getAll();
-            roleList = roleService.getAll();
-            request.setAttribute(ATT_USER_LIST, userList);
-            request.setAttribute(ATT_ROLE_LIST, roleList);
+            
 
         } catch (Exception ex) {
             //request.setAttribute("samp", userList.size());
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            userList = userService.getAll();
+            roleList = roleService.getAll();
+            request.setAttribute(ATT_USER_LIST, userList);
+            request.setAttribute(ATT_ROLE_LIST, roleList);
+        } catch (Exception e) {
+            
+        }
+        
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 

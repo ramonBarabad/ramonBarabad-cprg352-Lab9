@@ -43,7 +43,7 @@ public class RoleService {
 
     public void delete(int id) throws Exception {
         Role role = new Role();
-        role.setId(id);
+        role.setRoleId(id);
         RoleDB roleDB = new RoleDB();
         roleDB.delete(id);
     }

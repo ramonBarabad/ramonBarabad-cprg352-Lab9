@@ -63,11 +63,7 @@
                         <td>${user.firstName}</td>
                         <td>${user.lastName}</td>
                         <td>
-                            <c:forEach var="role" items="${roleList}">
-                                <c:if test="${user.role == role.id}">
-                                    ${role.name}
-                                </c:if>
-                            </c:forEach>
+                           ${user.getRole().roleName}
                         </td>
                         <td>
                             <c:choose>
@@ -99,10 +95,10 @@
         <div class="cont">
             <h2>Update User Info</h2>
             <form action="user" method="post">
-                <input class="tb-readonly" readonly="true" name="update_email" placeholder="Email" value="${update_email}"/>
+                <input class="tb-readonly" readonly="true" name="update_email" placeholder="Email" value="${updateUser.email}"/>
                 <br>
                 <c:choose>
-                    <c:when test="${update_active == true}">
+                    <c:when test="${updateUser.active == true}">
                         <input type="checkbox" name="update_active" checked="checked" value="true" />
                     </c:when>
                     <c:otherwise>
@@ -111,17 +107,17 @@
                 </c:choose>    
                 Active
                 <br>
-                <input type="text" name="update_firstName" placeholder="First Name" value="${update_firstName}">
+                <input type="text" name="update_firstName" placeholder="First Name" value="${updateUser.firstName}">
                 <br>
-                <input type="text" name="update_lastName" placeholder="Last Name" value="${update_lastName}">
+                <input type="text" name="update_lastName" placeholder="Last Name" value="${updateUser.lastName}">
                 <br>
-                <input type="hidden" name="update_password" placeholder="Password" value="${update_password}">
-                <select name="update_role">
+                <input type="hidden" name="update_password" placeholder="Password" value="${updateUser.password}">
+            
+                <select     name="update_role">
                     <c:forEach items="${roleList}" var="role">
-                        <option value="${role.id}" ${role.id== update_role ? 'selected' : ''}>${role.name}</option>
+                        <option value="${role.roleId}" ${role.roleId== updateUser.getRole().roleId ? 'selected' : ''}>${role.roleName}</option>
                     </c:forEach>
                 </select>
-                <br>
                
                  <div class="button-holder">
                     <input type="hidden" name="action" value="edit">
